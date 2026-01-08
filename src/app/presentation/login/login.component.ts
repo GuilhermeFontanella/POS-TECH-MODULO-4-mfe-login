@@ -1,5 +1,4 @@
-// presentation/login/login.component.ts
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -11,6 +10,7 @@ import { AUTH_PORT } from 'src/app/domain/auth/auth.token';
 import { FirebaseAuthService } from 'src/app/infra/firebase/firebase-auth.service';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { RegistrationComponent } from '../registration/registration.component';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     NzButtonModule, 
     NzInputModule,
     NzCardModule,
-    NzFormModule
+    NzFormModule,
+    RegistrationComponent
   ],
   providers: [
     LoginViewModel,
@@ -38,10 +39,19 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 export class LoginComponent {
   email = '';
   password = '';
+  showLoginPage: boolean = true;
 
   constructor(public vm: LoginViewModel) {}
 
   login() {
     this.vm.login(this.email, this.password);
+  }
+
+  backToLoginPage(event: any) {
+    this.showLoginPage = true;
+  }
+
+  showRegistrationPage() {
+    this.showLoginPage = false;
   }
 }

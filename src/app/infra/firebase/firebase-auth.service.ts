@@ -31,8 +31,6 @@ export class FirebaseAuthService implements AuthPort {
               name: result.user.displayName ?? '',
               token
             };
-
-            this.session.setUser(user);
             return user;
           })
         )

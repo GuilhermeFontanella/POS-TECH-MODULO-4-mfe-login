@@ -1,51 +1,52 @@
-<div class="login-page">
-  <nz-card class="login-card">
-    <h2 class="login-title">Bem-vindo ao Byte Bank</h2>
-    <p class="login-subtitle">Entre com suas credenciais</p>
+<ng-container *ngIf="showLoginPage; else registration">
+  <div class="login-page">
+    <nz-card class="login-card">
+      <h2 class="login-title">Bem-vindo ao Byte Bank</h2>
+      <p class="login-subtitle">Entre com suas credenciais</p>
+      <form nzForm (ngSubmit)="login()" class="login-form">
+        <nz-form-item>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Email"
+              [(ngModel)]="email"
+              name="email"
+              required
+              autocomplete="username"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="Senha"
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+              required
+              autocomplete="current-password"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+          <button type="submit" [nzLoading]="vm.loading$ | async" nz-button class="btn-primary full-width">
+              Entrar
+          </button>
+          </nz-form-control>
+        </nz-form-item>
+        <p class="login-error" *ngIf="(vm.error$ | async)">
+          {{ vm.error$ | async }}
+        </p>
+      </form>
+      <div class="login-footer">
+        <a (click)="showRegistrationPage()">Cadastrar-se</a>
+      </div>
+    </nz-card>
+  </div>
+</ng-container>
 
-    <form nzForm (ngSubmit)="login()" class="login-form">
-      <nz-form-item>
-        <nz-form-control>
-          <input
-            nz-input
-            placeholder="Email"
-            [(ngModel)]="email"
-            name="email"
-            required
-            autocomplete="username"
-          />
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-control>
-          <input
-            nz-input
-            placeholder="Senha"
-            type="password"
-            [(ngModel)]="password"
-            name="password"
-            required
-            autocomplete="current-password"
-          />
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-control>
-        <button type="submit" [nzLoading]="vm.loading$ | async" nz-button class="btn-primary full-width">
-            Entrar
-        </button>
-        </nz-form-control>
-      </nz-form-item>
-
-      <p class="login-error" *ngIf="(vm.error$ | async)">
-        {{ vm.error$ | async }}
-      </p>
-    </form>
-
-    <div class="login-footer">
-      <a href="#">Esqueceu a senha?</a>
-    </div>
-  </nz-card>
-</div>
+<ng-template #registration>
+  <app-registration (goBack)="backToLoginPage($event)"></app-registration>
+</ng-template>

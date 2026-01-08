@@ -1,0 +1,61 @@
+<div class="registration-page">
+  <nz-card class="registration-card">
+    <h2 class="registration-title">Olá, novo usuário...</h2>
+    <p class="registration-subtitle">Cadastre-se no Byte bank</p>
+
+    <form nzForm (ngSubmit)="register()" class="registration-form">
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Email"
+            [(ngModel)]="vm.formGroup.value.email"
+            name="email"
+            required
+            autocomplete="username"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Nome"
+            [(ngModel)]="vm.formGroup.value.name"
+            name="name"
+            required
+            autocomplete="username"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="Senha"
+            type="password"
+            [(ngModel)]="vm.formGroup.value.password"
+            name="password"
+            required
+            autocomplete="current-password"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+        <button type="submit" [nzLoading]="vm.loading$ | async" nz-button class="btn-primary full-width">
+            Cadastrar
+        </button>
+        </nz-form-control>
+      </nz-form-item>
+      <div (click)="goBack.emit()" class="login-footer">
+        <a>voltar</a>
+      </div>
+
+      <p class="registration-error" *ngIf="(vm.error$ | async)">
+        {{ vm.error$ | async }}
+      </p>
+    </form>
+  </nz-card>
+</div>
